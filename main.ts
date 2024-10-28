@@ -6,8 +6,8 @@ function Arrancar_robot_segundosvelocidad (segundos: number, velocidad: number) 
     neZha.stopMotor(neZha.MotorList.M4)
 }
 function Seguir_lineas_segundosvelocidad (segundos: number, velocidad: number) {
-    cronometro = 0
-    while (cronometro < segundos) {
+    end = control.millis() / 1000 + segundos
+    while (control.millis() / 1000 < segundos) {
         if (PlanetX_Basic.trackingSensor(PlanetX_Basic.DigitalRJPin.J1, PlanetX_Basic.TrackingStateType.Tracking_State_0)) {
             neZha.setMotorSpeed(neZha.MotorList.M1, velocidad)
             neZha.setMotorSpeed(neZha.MotorList.M4, velocidad)
@@ -21,15 +21,9 @@ function Seguir_lineas_segundosvelocidad (segundos: number, velocidad: number) {
             neZha.setMotorSpeed(neZha.MotorList.M4, velocidad)
         }
     }
-    neZha.stopMotor(neZha.MotorList.M1)
-    neZha.stopMotor(neZha.MotorList.M4)
+    neZha.setMotorSpeed(neZha.MotorList.M1, 0)
+    neZha.setMotorSpeed(neZha.MotorList.M4, 0)
 }
-let cronometro = 0
-Seguir_lineas_segundosvelocidad(1, 30)
-Arrancar_robot_segundosvelocidad(1, 30)
-loops.everyInterval(1000, function () {
-    cronometro += 1
-})
-basic.forever(function () {
-	
-})
+let end = 0
+neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 90)
+Seguir_lineas_segundosvelocidad(3, 30)
