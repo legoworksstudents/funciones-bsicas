@@ -1,6 +1,6 @@
-function Arrancar_robot_segundosvelocidad (segundos: number, velocidad: number) {
-    neZha.setMotorSpeed(neZha.MotorList.M1, 0)
-    neZha.setMotorSpeed(neZha.MotorList.M4, 0)
+function Avanzar_durante_segundos_velocidad (segundos: number, velocidad: number) {
+    neZha.setMotorSpeed(neZha.MotorList.M1, velocidad)
+    neZha.setMotorSpeed(neZha.MotorList.M4, velocidad)
     basic.pause(segundos * 1000)
     neZha.stopMotor(neZha.MotorList.M1)
     neZha.stopMotor(neZha.MotorList.M4)
@@ -26,4 +26,6 @@ function Seguir_lineas_segundosvelocidad (segundos: number, velocidad: number) {
 }
 let end = 0
 neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 90)
-Seguir_lineas_segundosvelocidad(3, 30)
+Seguir_lineas_segundosvelocidad(6, 100)
+neZha.setServoAngel(neZha.ServoTypeList._360, neZha.ServoList.S1, 110)
+Avanzar_durante_segundos_velocidad(2, -100)
